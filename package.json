@@ -1,0 +1,19 @@
+{
+  "name": "ml-mv",
+  "version": "0.0.1",
+  "description": "a digital implementation of marvel villainous for machine learning",
+  "main": "game.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "boardgames",
+    "javascript",
+    "machine learning"
+  ],
+  "author": "Brian E Tovar",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^28.1.1"
+  }
+}
