@@ -3,6 +3,7 @@ class Card {
 		this.name = name;
 		this.desc = desc;
 		this.type = type;
+		return this;
 	}
 }
 

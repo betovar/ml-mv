@@ -1,4 +1,4 @@
-const location = require('../location.js');
+const location = require('../locations.js');
 
 let domain = [
 new location("Sanctuary II")
@@ -20,7 +20,8 @@ new location("Knowhere")
 	.addAbility("Relocate",'bloc')
 	.addAbility("Fate")
 	.addAbility("Play")
-	.addAbility("Vanquish")
+	.addAbility("Vanquish"),
+	[] //specialty
 ]
 
 module.exports = {domain};
