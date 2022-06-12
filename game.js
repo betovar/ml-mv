@@ -1,98 +1,81 @@
-let turn   = 0; 	// turn tracker
-let player = {}; 	// player list
-let deck   = {}; 	// fate and villain decks
-let domain = {};	// villain domains
-let event  = {};	// global and targeted events
-let track  = [];	// available actions
+class Game {
+	constructor(villains=[], mode='omniponent') {
+		this.turn   = 0;	// turn tracker
+		this.domain = {};	// villain domains
+		this.events = {};	// global and targeted events
+		this.deck   = {}; 	// fate and villain decks
+		this.player = {};	// player list and wallets
+		this.track  = [];	// available actions
 
-function new_game(villains=[], mode='omniponent') {
-	if (villains.length == 0) { return; }
-	// load tokens
-	let p = [0,1,2,2];
-	for (v of villains) {
-		player[v] = {"dom": v, "loc": '', "power": p[villains.indexOf(v)]};
-	}
-
-	// load domains
-	for (v of villains) {
-		domain[v] = require('./src/domains/'+v+'.js').domain;
-	}
-
-	// load decks
-	deck['fate'] = require('./src/decks/fate.js').fate;
-	for (v of villains) {
-		deck[v] = require('./src/decks/'+v+'.js').deck;
-		for ( x of require('./src/decks/'+v+'.js').fate) {
-			deck['fate'].push(x);
-		}
+		if (villains.length < 2) { return; }
+		this.player['order'] = villains;
+		let p = [0,1,2,2];
+		let f = require('./src/decks/fate.js');
+		this.deck['fate'] = f.fate;
 		if (mode == 'inevitable' || mode == 'undying') {
-			//add event cards
+			for (e of f.event) {
+				this.deck['fate'].push(e);
+			}
 		}
+		this.events['global'] = {};
+		for (var v of villains) {
+			this.events[v] = {};
+			this.player[v] = {
+				"dom": v, "loc": '', "hand": [], 
+				"power": p[villains.indexOf(v)]};
+			let d = require('./src/domains/'+v+'.js');
+			this.domain[v] = d.domain;
+			let k = require('./src/decks/'+v+'.js');
+			this.deck[v] = k.deck;
+			//shuffle(this.deck[v]);
+			for (var x of k.fate) {
+				this.deck['fate'].push(x);
+			}
+			if (mode == 'inevitable' || mode == 'undying') {
+				for (var y of d.event) {
+					this.deck['fate'].push(y);
+				}
+			}
+		}
+		//shuffle(this.deck['fate']);
+	 	console.log("all decks shuffled");
+	}
+	isTurn(who) {
+		return this.turn % this.player['order'].length != this.player['order'].indexOf(who);
+	}
+	end_turn(who, drawup='auto') {
+		if (isTurn(who)) { return; }
+		this.turn += 1;
+		this.track = ["Move Token"];
+		if (drawup == 'nodraw') { return; }
+		let n = 4-this.player[who].hand.length;
+		if (n) { draw(who, who, n); }
+		console.log(who, "ended their turn");
+	}
+	move(who, dest) {
+		if (isTurn(who)) { return; }
+		// FIXME player must stay in their domain
+		if (this.player[who].loc == dest) { return; }
+		this.player[who].loc = dest;
+		this.track.splice(this.track.indexOf("Move Token"),1);
+		for (var a in this.domain[who][dest].action) {
+			if (this.domain[who][dest][a].isBlocked()) {
+				this.track.push(a);
+			}
+		}
+		console.log(who, "moved to", player[who].loc);
 	}
 }
 
 module.exports = { 
-	"new_game": new_game,
-	"player": player,
-	"deck": deck,
-	"domain": domain,
-	"event": event
+	"game": Game
 };
 
-// init(['thanos', 'ultron']);
-// draw('thanos', 'thanos', 4);
-// move('thanos', 'Sanctuary II');
-// collect('thanos', 2);
-// let test = player['thanos']['hand'][0];
-// play('thanos', test, 'Titan');
-// track.push('Relocate');
-// relocate('thanos', 'Titan', test, 'Sanctuary II');
-// discard('thanos', player['thanos']['hand'][0]);
-// end_turn('thanos');
-//
-// function init(villains, e=0) {
-// 	// add error check of input
-// 	player['order'] = villains; // load player turn order
-// 	const f = require('./art/fate-infinite/cards.json');
-// 	deck.fate = Object.keys(f['fate']); // load fate cards
-// 	if (e) {
-// 		for (var g of Object.keys(f['event'])) {
-// 			deck['fate'].push(g);
-// 		};
-// 		event['global'] = {};
-// 	}
-// 	for (var v of villains) {
-// 		let m = 0;
-// 		const r = require('./art/'+v+'/cards.json');
-// 		deck[v] = [];
-// 		player[v] = {"dom": v, "loc": '', "power": 0};
-// 		for (var j in r['villain']) {
-// 			deck[v].push(j); // load villain cards
-// 			deck[v][deck[v].length].hash = m++; 
-// 			let i = r.villain[j].copies;
-// 			while (--i) {
-// 				deck[v].push(j);
-// 				deck[v][deck[v].length].hash = m++;
-// 			}
-// 		}
-// 		for (var k in r['fate']) {
-// 			deck['fate'].push(k);
-// 			let i = r.fate[k].copies;
-// 			while (--i) {
-// 				deck['fate'].push(k);
-// 			}
-// 		}
-// 		if (e) {
-// 			for (var l in r['event']) {
-// 				deck['fate'].push(l);
-// 			}
-// 			event[v] = {};
-// 		}
-// 		shuffle(deck[v]); // shuffle villan deck
-// 		domain[v] = r['domain']; // load domains
-// 		console.log(v, "domain loaded");
-// 		player[v].hand = []; // initialize player hands
-// 	};
-// 	shuffle(deck['fate']); // shuffle fate deck
-// 	console.log("all decks shuffled");
-// };
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        let temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+};
