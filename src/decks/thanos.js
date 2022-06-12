@@ -1,26 +1,4 @@
-// let Card = require('../cards.js').Card;
-
-let event = [
-	{
-		"name": "Sacrifices Must Be Made",
-		"type": "Event",
-		"strength": 7
-	}
-]
-
 let fate = [
-	{
-		"name": "A Stone is Found",
-		"desc": "Choose a Villain other than Thanos. That Villain receives an unclaimed Infinity Stone. Once played, they may immediately activate it for free.",
-		"type": "Effect"
-		
-	},
-	{
-		"name": "What Did It Cost?",
-		"desc": "The targeted Villain must discard one card from their hand for each Infinity Stone they control up to the total number of cards in their hand.",
-		"type": "Effect",
-		"onplay": () => {console.log("playing")}
-	},
 	{
 		"name": "Adam Warlock",
 		"desc": "Thanos cannot win the game if Adam Warlock is in Thanos' Domain.",
@@ -46,6 +24,21 @@ let fate = [
 			"strength": 3
 	}
 ];
+
+for (let i=0; i<=3; i++) {
+	if ( i<3 ) { // 3 copies
+		fate.push({
+			"name": "A Stone is Found",
+			"desc": "Choose a Villain other than Thanos. That Villain receives an unclaimed Infinity Stone. Once played, they may immediately activate it for free.",
+			"type": "Effect"
+		});
+		fate.push({
+			"name": "What Did It Cost?",
+			"desc": "The targeted Villain must discard one card from their hand for each Infinity Stone they control up to the total number of cards in their hand.",
+			"type": "Effect"
+		});
+	}
+}
 
 let deck = [
 	{
@@ -92,8 +85,8 @@ let deck = [
 ];
 
 for (let i=0; i<=5; i++) {
-	if ( i<5 ) {
-		deck.push({ // 5 copies
+	if ( i<5 ) { // 5 copies
+		deck.push({
 			"name": "The Legions of Thanos",
 			"text": "No additional ability.",
 			"type": "Ally",
@@ -101,48 +94,48 @@ for (let i=0; i<=5; i++) {
 			"cost": 1
 			});
 	}
-	if ( i<4 ) {
-		deck.push({ // 4 copies
+	if ( i<4 ) { // 4 copies
+		deck.push({
 			"name": "Consult the Well",
 			"text": "",
 			"type": "Effect",
 			"cost": 2
 		});
 	}
-	if ( i<3 ) {
-		deck.push({ // 3 copies
+	if ( i<3 ) { // 3 copies
+		deck.push({
 			"name": "A Small Price to Pay",
 			"text": "",
 			"type": "Effect",
 			"cost": 0
 		});
-		deck.push({ // 3 copies
+		deck.push({
 			"name": "Death's Favor",
 			"text": "",
 			"type": "Item",
 			"cost": 2
 		});
-		deck.push({ // 3 copies
+		deck.push({
 			"name": "Taste of Cosmic Power",
 			"text": "",
 			"type": "Effect",
 			"cost": 2
 		});
 	}
-	if ( i<2 ) {
-		deck.push({ // 2 copies
+	if ( i<2 ) { // 2 copies
+		deck.push({
 			"name": "Deliver Judgment",
 			"text": "",
 			"type": "Effect",
 			"cost": 3
 		});
-		deck.push({ // 2 copies
+		deck.push({
 			"name": "The Mad Titan",
 			"text": "Choose a character you do not control in the same location as one of your Allies. Defeat that character. The cost to play The Mad titan is equal to the Strength of the defeated character.",
 			"type": "Effect",
 			"cost": 0
 		});
-		deck.push({ // 2 copies
+		deck.push({
 			"name": "Warp Reality",
 			"text": "",
 			"type": "Effect",
@@ -194,7 +187,16 @@ let stones = [
 		"back": "Specialty",
 		"activate": () => {}
 	}
-]
+];
+
+let event = [
+	{
+		"name": "Sacrifices Must Be Made",
+		"type": "Event",
+		"strength": 7
+	}
+];
+
 module.exports = {
 	"deck": deck,
 	"fate": fate,

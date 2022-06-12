@@ -22,7 +22,9 @@ function new_game(villains=[], mode='omniponent') {
 	deck['fate'] = require('./src/decks/fate.js').fate;
 	for (v of villains) {
 		deck[v] = require('./src/decks/'+v+'.js').deck;
-		deck['fate'].push(require('./src/decks/'+v+'.js').fate);
+		for ( x of require('./src/decks/'+v+'.js').fate) {
+			deck['fate'].push(x);
+		}
 		if (mode == 'inevitable' || mode == 'undying') {
 			//add event cards
 		}
