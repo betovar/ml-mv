@@ -1,29 +1,25 @@
 // Integration Tests
 
-let g = require('../game.js');
+let game = require('../src/game.js').Game
+let g = new game(['thanos', 'ultron', 'hela', 'killmonger'])
 
-let game = new g.game(['thanos', 'ultron', 'hela']);
-
-test("Thanos' player token", () => {
-	expect(game.player.thanos.power).toBe(0);
-});
-test("Ultron's player token", () => {
-	expect(game.player.ultron.power).toBe(1);
-});
-test("Hela's player token", () => {
-	expect(game.player.hela.power).toBe(2);
-});
-test("Fate deck is loaded but no events", () => {
-	expect(game.deck['fate'].length).toBe(11+30);
-});
-
-// init(['thanos', 'ultron']);
-// draw('thanos', 'thanos', 4);
-// move('thanos', 'Sanctuary II');
-// collect('thanos', 2);
-// let test = player['thanos']['hand'][0];
-// play('thanos', test, 'Titan');
-// track.push('Relocate');
-// relocate('thanos', 'Titan', test, 'Sanctuary II');
-// discard('thanos', player['thanos']['hand'][0]);
-// end_turn('thanos');
+test("Player power at setup", () => {
+	expect(g.player.thanos.power).toBe(0)
+	expect(g.player.ultron.power).toBe(1)
+	expect(g.player.hela.power).toBe(2)
+	expect(g.player.killmonger.power).toBe(2)
+})
+test("Fate deck setup", () => {
+	expect(g.player.count).toBe(4)
+	expect(g.deck['fate'].length).toBe(51)
+})
+test("Villain decks setup", () => {
+	expect(g.deck.thanos.length).toBe(30)
+	expect(g.deck.ultron.length).toBe(30)
+	expect(g.deck.hela.length).toBe(30)
+	expect(g.deck.killmonger.length).toBe(30)
+})
+//test("Turn order", () => {})
+//test("Events", () => {})
+//test("Player hand", () => {})
+//test("Player location", () => {})

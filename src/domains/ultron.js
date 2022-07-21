@@ -1,27 +1,13 @@
-const location = require('../locations.js');
+const location = require('../location.js')
 
 let domain = [
-new location("Research Lab")
-	.addAbility("Relocate", 'bloc')
-	.addAbility("1 Power", 'bloc')
-	.addAbility("Fate")
-	.addAbility("Play"),
-new location("Manufacturing Array")
-	.addAbility("Play", 'bloc')
-	.addAbility("Fate", 'bloc')
-	.addAbility("3 Power")
-	.addAbility("Activate"),
-new location("Reconfiguration Base")
-	.addAbility("Play", 'bloc')
-	.addAbility("2 Power", 'bloc')
-	.addAbility("Discard")
-	.addAbility("Vanquish"),
-new location("Stark Industries Industrial Complex")
-	.addAbility("Discard", 'bloc')
-	.addAbility("Play", 'bloc')
-	.addAbility("Play")
-	.addAbility("1 Power"),
+new location("Research Lab", ["Relocate", "1 Power"], ["Fate", "Play"]),
+new location("Manufacturing Array", ["Play", "Fate"], ["3 Power", "Activate"]),
+new location("Reconfiguration Base", ["Play", "2 Power"], ["Discard", "Vanquish"]),
+new location("Stark Industries Industrial Complex", ["Discard", "Play"], ["Play", "1 Power"]),
 	[] //specialty
 ]
 
-module.exports = {domain};
+module.exports = {
+	"domain": domain
+}

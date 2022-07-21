@@ -1,0 +1,22 @@
+extends game.pug
+
+block scripts
+  link(rel="stylesheet", href="/domain.css")
+
+block content
+  each obj, vi in domain
+    div.domain
+      each loc in Object.keys(domain[vi])
+        div.col
+          div.stack#heroes
+          div.location
+            div.actions#top
+              each ab in domain[vi][loc].top
+                div.ability= ab
+            div.actions#bottom
+              each ab in domain[vi][loc].bot
+                div.ability= ab
+          h2= loc
+          div.stack#allies
+      div.col
+        div.stack#special
