@@ -1,4 +1,4 @@
-function location(name, a=[], b=[]) {
+function location(name, b=[], a=[]) {
 	this.name 	= name	// location display name
 	this.top 	= [] 	// card stack for heroes
 	this.bottom = []	// card stack for allies

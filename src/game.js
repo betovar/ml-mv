@@ -1,43 +1,46 @@
 function Game(villains=[], mode='omniponent') {
-	this.turn   = 0		// turn tracker
-	this.domain = {}	// villain domains
-	this.event 	= {}	// global and targeted events
-	this.deck   = {} 	// fate and villain decks
-	this.player = {}	// player list and wallets
-	this.track  = []	// available actions
+	let s = {}
+	s['turn']   = 0		// turn tracker
+	s['domain'] = {}	// villain domains
+	s['event'] 	= {}	// global and targeted events
+	s['deck']   = {} 	// fate and villain decks
+	s['player'] = {}	// player list and wallets
+	s['track']  = []	// available actions
 
-	if (villains.length < 2 || villains.length > 5) { return }
-	this.player['order'] = villains
-	this.player['count'] = villains.length
+	if (villains.length < 2 || villains.length > 4) { return }
+	s.player['order'] = villains
+	s.player['count'] = villains.length
 	let f = require('./decks/fate.js')
-	this.deck['fate'] = f.fate
+	s.deck['fate'] = f.fate
 	if (mode == 'inevitable' || mode == 'undying') {
 		for (let e of f.event) {
-			this.deck['fate'].push(e)
+			s.deck['fate'].push(e)
 		}
-		this.event['global'] = {}
+		s.event['global'] = {}
 	}
 	let p = [0,1,2,2]
 	for (let v of villains) {
-		this.player[v] = {
-			"dom": v, "loc": '', "hand": [], 
+		s.player[v] = {
+			"dom": v,
+			"loc": '',
+			"hand": [],
 			"power": p[villains.indexOf(v)]}
-		this.domain[v] = require('./domains/'+v+'.js').domain
+		s.domain[v] = require('./domains/'+v+'.js').domain
 		let k = require('./decks/'+v+'.js')
-		this.deck[v] = k.deck
-		shuffle(this.deck[v])
+		s.deck[v] = k.deck
+		shuffle(s.deck[v])
 		for (let x of k.fate) {
-			this.deck['fate'].push(x)
+			s.deck['fate'].push(x)
 		}
 		if (mode == 'inevitable' || mode == 'undying') {
-			this.event[v] = {}
+			s.event[v] = {}
 			for (let y of d.event) {
-				this.deck['fate'].push(y)
+				s.deck['fate'].push(y)
 			}
 		}
 	}
-	//shuffle(this.deck['fate'])
- 	return this
+	shuffle(s.deck['fate'])
+ 	return s
 }
 
 function shuffle(array) {
