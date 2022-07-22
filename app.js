@@ -14,5 +14,5 @@ app.get('/domain', (req, res) => {
   res.render('domain', {"domain":g.domain})
 })
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`game running on port ${port}`)
 })
