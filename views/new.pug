@@ -1,0 +1,12 @@
+//- new.pug
+html
+  head
+    title= title
+    link(rel="stylesheet", href="/css/bootstrap.min.css")
+    block scripts
+  body
+    form
+      .custom-control.custom-switch
+        input.custom-control-input(type="checkbox",id="customSwitch1")
+        label.custom-control-label(for="customSwitch1") Toggle
+        
