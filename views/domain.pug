@@ -1,22 +1,16 @@
-extends game.pug
-
-block scripts
-  link(rel="stylesheet", href="/domain.css")
-
-block content
-  each d in domain
-    div.domain
-      each i in [0,1,2,3]
-        div.col
-          div.stack#heroes
-          div.location
-            div.actions#block
-              each ab of d[i].block
-                div.ability= ab.slice(0,1)
-            div.actions#always
-              each ab of d[i].always
-                div.ability= ab.slice(0,1)
-          h2= d[i].name
-          div.stack#allies
+each d in domain
+  div.domain
+    each i in [0,1,2,3]
       div.col
-        div.stack#special
+        div.stack#heroes
+        div.location
+          div.actions#block
+            each ab of d[i].block
+              div.ability= ab.slice(0,1)
+          div.actions#always
+            each ab of d[i].always
+              div.ability= ab.slice(0,1)
+        h2= d[i].name
+        div.stack#allies
+    div.col
+      div.stack#special

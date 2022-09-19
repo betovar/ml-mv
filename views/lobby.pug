@@ -1,0 +1,57 @@
+//- lobby.pug
+extends base.pug
+
+block scripts
+  link(rel="stylesheet", href="")
+
+block content
+  H1 LOBBY
+  .container
+    span(style="font-weight:bold;") PLAYERS: 
+    .form-check.form-check-inline
+      input.form-check-input(type="checkbox", value="5p" checked)
+      label.form-check-label(for="") 5
+    .form-check.form-check-inline
+      input.form-check-input(type="checkbox", value="4p" checked)
+      label.form-check-label(for="") 4
+    .form-check.form-check-inline
+      input.form-check-input(type="checkbox", value="3p" checked)
+      label.form-check-label(for="") 3
+    .form-check.form-check-inline
+      input.form-check-input(type="checkbox", value="2p" checked)
+      label.form-check-label(for="") 2
+    span(style="font-weight:bold;") TURNS: 
+    .form-check.form-check-inline
+      input.form-check-input(type="checkbox", value="" checked)
+      label.form-check-label(for="") None
+    .form-check.form-check-inline
+      input.form-check-input(type="checkbox", value="" checked)
+      label.form-check-label(for="") Snooze
+    .form-check.form-check-inline
+      input.form-check-input(type="checkbox", value="" checked)
+      label.form-check-label(for="") Voting
+    .form-check.form-check-inline
+      input.form-check-input(type="checkbox", value="" checked)
+      label.form-check-label(for="") Strict
+  .container.col-3
+    .card.text-center
+      .card-header
+        h3 Game ID
+      .card-body
+        label.form-label(for="customRange3") Example range
+        input.form-range(type="range" min="0" max="5" step="0.5" id="customRange3")
+        .d-grid.gap-2.col-10.mx-auto
+          button.btn.btn-outline-secondary(type="button", content="Some info about game settings") Settings
+          button.btn.btn-outline-dark(type="button") Thanos
+          button.btn.btn-outline-dark(type="button") Ultron
+          .btn-group.dropend(role="group")
+            button.btn.btn-primary.dropdown-toggle(type="button", data-bs-toggle="dropdown", aria-expanded="false") Select
+            ul.dropdown-menu.dropdown-menu-dark
+              li
+                a.dropdown-item(href="#") Killmonger
+              li
+                a.dropdown-item(href="#") Hela
+              li
+                a.dropdown-item(href="#") Taskmaster
+          .progress(style="height: 20px;")
+            .progress-bar(role="progressbar", style="width: 50%;") 2/4

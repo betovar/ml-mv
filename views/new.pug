@@ -1,12 +1,78 @@
 //- new.pug
-html
-  head
-    title= title
-    link(rel="stylesheet", href="/css/bootstrap.min.css")
-    block scripts
-  body
-    form
-      .custom-control.custom-switch
-        input.custom-control-input(type="checkbox",id="customSwitch1")
-        label.custom-control-label(for="customSwitch1") Toggle
-        
+extends base.pug
+
+block scripts
+  link(rel="stylesheet", href="")
+
+block content
+  form.container.col-6(role='form', action='/lobby', method='post', autocomplete="off")
+    h1.text-uppercase #{title}
+    .form-row.form-group
+      label.col.control-label#players(for='players') Player Count
+      .col
+        select.form-select#players(name='players')
+          option(selected='') 2
+          option 3
+          option 4
+          option 5
+    .form-row.form-group
+      label.col.control-label(for='events') Events
+      .col
+        select.form-select#events(name='events')
+          option(selected='') Omnipotent (Easy)
+          option Inevitable (Moderate)
+          option Undying (Difficult)
+    .form-row.form-group
+      label.col.control-label(for='villain') Villain Selection Order
+      .col
+        select.form-select#villain(name='villain')
+          option(selected='') Allow Duplicates
+          option Random
+          option Join
+          option Free for All
+    .form-row.form-group
+      label.col.control-label(for='seats') Seat Order
+      .col
+        select.form-select#seats(name='seats')
+          option(selected='') Random
+          option Join
+          option Reverse Join
+          option Cake Day
+          option Host Assign
+    .form-row.form-group
+      label.col.control-label(for='power') Power Draw
+      .col
+        select.form-select#power(name='power')
+          option(selected='') Automatic
+          option Reminder
+          option None
+    .form-row.form-group
+      label.col.control-label(for='enforcement') Turn Enforcment
+      .col
+        select.form-select#enforcement(name='enforcement')
+          option(selected='') None
+          option Snooze
+          option Voting
+          option Strict
+    .form-row.form-group
+      label.col.control-label(for='timer') Turn Timer
+      .col.input-group
+          input.form-control#timer(name='timer', type='tel', value='5')
+          .input-group-append
+            select.form-select#units(name='units')
+              option seconds
+              option(selected='') minutes
+              option hours
+              option days
+    .form-row.form-group
+      label.col.control-label(for='password') Password Protection
+      .col.input-group
+        .input-group-prepend
+          select.form-select#privacy(name='privacy')
+            option(selected='') Public
+            option Private
+        input.form-control#password(name='password', type='text', placeholder='secret', value='')
+    .form-row.form-group
+      label.col.control-label(for='submit') Ready? Set?
+      .col
+        button#readyset.btn.btn-primary.btn-block.form-control(name='submit', type='submit', value='yes') Go!

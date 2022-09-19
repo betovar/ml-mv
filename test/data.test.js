@@ -2,7 +2,7 @@ let mongo = require('../src/mongodb.js')
 let db = new mongo.init()
 let TEST_GAMEID = Math.random().toString(36).substr(2,6)
 let TEST_USERID = Math.floor(Math.random() * 1000)
-let TEST_LOBBYID = 1234
+let TEST_LOBBYID = 12345
 
 beforeAll( async () => {
     await db.connect()
@@ -23,7 +23,7 @@ test('create user', async () => {
 test('create lobby', async () => {
     let result = await db.create_lobby(TEST_LOBBY)
     expect(result.acknowledged).toBeTruthy()
-    TEST_LOBBYID = result.insertedId
+    expect(result.insertedId).toBe(TEST_LOBBYID)
 });
 
 test('get lobby', async () => {
@@ -39,7 +39,12 @@ test('join lobby', async () => {
     let result = await db.join_lobby(TEST_LOBBYID, TEST_USERID)
     expect(result).not.toBe(0)
     expect(result.acknowledged).toBeTruthy()
-    //expect(result.modifiedCount).toBe(1)
+    expect(result.modifiedCount).toBe(1)
+    let second = await db.join_lobby(TEST_LOBBYID, TEST_USERID)
+    //console.log(second)
+    //expect(second).toBe(0)
+    expect(second.acknowledged).toBeTruthy()
+    //expect(second.modifiedCount).toBe(0)
 });
 
 test('create game', async () => {
@@ -59,23 +64,23 @@ test('update game', async () => {
     expect(result.modifiedCount).toBe(1)
 });
 
-// test('delete user', async () => {
-//     let result = await db.del_user(TEST_USERID)
-//     expect(result.acknowledged).toBeTruthy()
-//     expect(result.deletedCount).toBe(1)
-// });
+test('delete user', async () => {
+    let result = await db.del_user(TEST_USERID)
+    expect(result.acknowledged).toBeTruthy()
+    expect(result.deletedCount).toBe(1)
+});
 
-// test('delete lobby', async () => {
-//     let result = await db.del_lobby(TEST_LOBBYID)
-//     expect(result.acknowledged).toBeTruthy()
-//     expect(result.deletedCount).toBe(1)
-// });
+test('delete lobby', async () => {
+    let result = await db.del_lobby(TEST_LOBBYID)
+    expect(result.acknowledged).toBeTruthy()
+    expect(result.deletedCount).toBe(1)
+});
 
-// test('delete game', async () => {
-//     let result = await db.del_game(TEST_GAMEID)
-//     expect(result.acknowledged).toBeTruthy()
-//     expect(result.deletedCount).toBe(1)
-// });
+test('delete game', async () => {
+    let result = await db.del_game(TEST_GAMEID)
+    expect(result.acknowledged).toBeTruthy()
+    expect(result.deletedCount).toBe(1)
+});
 
 afterAll( async () => {
     await db.disconnect()
@@ -127,6 +132,7 @@ const TEST_GAME = {
 }
 
 const TEST_LOBBY = {
+    '_id': TEST_LOBBYID,
     'title': "Marvel Villainous",
     'users': [],
     'seats': 2

@@ -1,5 +1,31 @@
-html
-  head
-    title= title
-  body
-    h1= message
+//- index.pug
+extends base.pug
+
+block scripts
+  link(rel="stylesheet", href="")
+
+block content
+  header.mb-auto
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      a.navbar-brand(href="/") Home
+      button.navbar-toggler(type="button", data-toggle="collapse", data-target="#navbarNav", aria-controls="navbarNav", aria-expanded="false", aria-label="Toggle navigation")
+        span.navbar-toggler-icon
+      .collapse.navbar-collapse#navbarNav
+        ul.navbar-nav
+          li.nav-item
+            a.nav-link(href="/lobby") Lobby
+          li.nav-item
+            a.nav-link(href="/new") New
+          li.nav-item
+            a.nav-link(href="/game") Games
+          li.nav-item
+            a.nav-link(href="/user/1234") User
+          li.nav-item
+            a.nav-link(href="login") Login
+
+  main.col-4.text-center
+    h1.text-uppercase Play a game
+    p.lead Join a game with friends or host your own. Play by web or write a bot.
+
+  footer
+    p Figure out what to put in a footer

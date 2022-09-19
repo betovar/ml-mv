@@ -1,34 +1,52 @@
 const express = require('express')
-const session = require('express-session')
 const app = express()
 const port = 3000
 const pug = require('pug')
-let game = require('./src/game.js').Game
+let mongo = require('./src/mongodb.js')
+let db = new mongo.init()
 
 app.set('view engine', 'pug')
 app.use(express.static('public'))
-app.use(
-  session({
-    secret: 'SomeSuperLongHardToGuessSecretString',
-    resave: true,
-    saveUninitialized: false,
-  })
-)
+app.use(express.json()) // Used to parse JSON bodies
+app.use(express.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => {
-  res.render('index', {'title':"Marvel Villainous"})
+  res.render('index', {'title': "Home"})
 })
 app.get('/new', (req, res) => {
-//  let g = new game(['thanos', 'ultron', 'hela', 'killmonger'])
-  res.render('new', {'title':"New Game"})
+  res.render('new', {'title': "New Game"})
 })
-app.get('/game', (req, res) => {
-  let g = new game(['thanos', 'ultron', 'hela', 'killmonger'])
-  res.render('game', {'domain':g.domain})
+// app.get('/u/:userid', async (req, res) => {
+//   //let result = await db.get_user(req.params.userid)
+//   res.render('user', {'title': "User Profile"})
+// })
+app.get('/lobby', async (req, res) => {
+  let result = await db.get_lobby()
+  res.send(result)
+  //res.render('lobby', result)
 })
-app.get('/account', (req, res) => {
-  res.render('login', {'title':"Account"})
+app.post('/lobby', async (req, res) => {
+  let result = await db.create_lobby(req.body)
+  //res.send(result)
+  res.redirect('/lobby')
 })
+// app.get('/login', (req, res) => {
+//   res.render('login', {'title': "Login"})
+// })
+// app.get('/g/:gameid', (req, res) => {
+//   let g = db.get_game(req.gameid)
+//   res.render('game', {'title': "Marvel Villainous"})
+// })
+// app.get('/game', (req, res) => {
+//   let result = db.list_games({'userid': req.userid})
+//   res.send(result)
+//   //res.render('game', {'title': "Marvel Villainous"})
+// })
+// app.post('/game', (req, res) => {
+//   let gameid = res.body.gameid
+//   let r = db.create_game(gameid)
+//   res.redirect('/g/'+gameid)
+// })
 app.listen(port, () => {
   console.log(`game running on port ${port}`)
 })
