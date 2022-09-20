@@ -61,10 +61,22 @@ class MongoDB {
 		// check lobby data
 		if (gameid == 0) { return 0 }
 		let lobres = await this.client.db(DB_NAME).collection(CL_LOBBY).findOne({'_id': gameid})
-		if (lobres.users[0] == userid) { return 0 }
+		if (lobres.users.includes(userid)) { return 0 }
 		if (lobres.users.length == lobres.seats) { return 0 }
 		// add user to lobby
 		let result = await this.client.db(DB_NAME).collection(CL_LOBBY).updateOne({'_id': gameid}, {$push: {'users': userid}})
+		return result
+	}
+	async leave_lobby(gameid=0, userid=0) {
+		// check if user exists
+		if (userid == 0) { return 0 }
+		let useres = await this.client.db(DB_NAME).collection(CL_USER).findOne({'_id': userid})
+		// check lobby data
+		if (gameid == 0) { return 0 }
+		let lobres = await this.client.db(DB_NAME).collection(CL_LOBBY).findOne({'_id': gameid})
+		if (!lobres.users.includes(userid)) { return 0 }
+		// rm user from lobby
+		let result = await this.client.db(DB_NAME).collection(CL_LOBBY).updateOne({'_id': gameid}, {$pull: {'users': userid}})
 		return result
 	}
 	async create_game(game={}) {

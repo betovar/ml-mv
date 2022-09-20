@@ -26,6 +26,8 @@ app.get('/lobby', async (req, res) => {
   //res.render('lobby', result)
 })
 app.post('/lobby', async (req, res) => {
+  delete req.body.submit
+  req.body.users = []
   let result = await db.create_lobby(req.body)
   //res.send(result)
   res.redirect('/lobby')
