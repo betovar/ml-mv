@@ -1,57 +1,70 @@
 //- lobby.pug
 extends base.pug
 
+block header
+  link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.9.1/font/bootstrap-icons.min.css")
+  //-link(rel="stylesheet", href="")
+
 block scripts
-  link(rel="stylesheet", href="")
+  script(type="module", src="https://unpkg.com/react@18/umd/react.development.js" crossorigin)
+  script(type="module", src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin)
+  script(src="https://unpkg.com/babel-standalone@6/babel.min.js")
 
 block content
-  H1 LOBBY
+  H1.text-uppercase #{title}
   .container
-    span(style="font-weight:bold;") PLAYERS: 
-    .form-check.form-check-inline
-      input.form-check-input(type="checkbox", value="5p" checked)
-      label.form-check-label(for="") 5
-    .form-check.form-check-inline
-      input.form-check-input(type="checkbox", value="4p" checked)
-      label.form-check-label(for="") 4
-    .form-check.form-check-inline
-      input.form-check-input(type="checkbox", value="3p" checked)
-      label.form-check-label(for="") 3
-    .form-check.form-check-inline
-      input.form-check-input(type="checkbox", value="2p" checked)
-      label.form-check-label(for="") 2
-    span(style="font-weight:bold;") TURNS: 
-    .form-check.form-check-inline
-      input.form-check-input(type="checkbox", value="" checked)
-      label.form-check-label(for="") None
-    .form-check.form-check-inline
-      input.form-check-input(type="checkbox", value="" checked)
-      label.form-check-label(for="") Snooze
-    .form-check.form-check-inline
-      input.form-check-input(type="checkbox", value="" checked)
-      label.form-check-label(for="") Voting
-    .form-check.form-check-inline
-      input.form-check-input(type="checkbox", value="" checked)
-      label.form-check-label(for="") Strict
-  .container.col-3
-    .card.text-center
-      .card-header
-        h3 Game ID
-      .card-body
-        label.form-label(for="customRange3") Example range
-        input.form-range(type="range" min="0" max="5" step="0.5" id="customRange3")
-        .d-grid.gap-2.col-10.mx-auto
-          button.btn.btn-outline-secondary(type="button", content="Some info about game settings") Settings
-          button.btn.btn-outline-dark(type="button") Thanos
-          button.btn.btn-outline-dark(type="button") Ultron
-          .btn-group.dropend(role="group")
-            button.btn.btn-primary.dropdown-toggle(type="button", data-bs-toggle="dropdown", aria-expanded="false") Select
-            ul.dropdown-menu.dropdown-menu-dark
-              li
-                a.dropdown-item(href="#") Killmonger
-              li
-                a.dropdown-item(href="#") Hela
-              li
-                a.dropdown-item(href="#") Taskmaster
-          .progress(style="height: 20px;")
-            .progress-bar(role="progressbar", style="width: 50%;") 2/4
+    .col
+      span(style="font-weight:bold;") PLAYERS: 
+      .form-check.form-check-inline
+        input.form-check-input(type="checkbox" value="5p" checked="checked")
+        label.form-check-label(for="") 5
+      .form-check.form-check-inline
+        input.form-check-input(type="checkbox" value="4p" checked="checked")
+        label.form-check-label(for="") 4
+      .form-check.form-check-inline
+        input.form-check-input(type="checkbox" value="3p" checked="checked")
+        label.form-check-label(for="") 3
+      .form-check.form-check-inline
+        input.form-check-input(type="checkbox" value="2p" checked="checked")
+        label.form-check-label(for="") 2
+    .col
+      span(style="font-weight:bold;") EVENTS: 
+      .form-check.form-check-inline
+        input.form-check-input(type="checkbox" value="" checked="checked")
+        label.form-check-label(for="") Omnipotent (Easy)
+      .form-check.form-check-inline
+        input.form-check-input(type="checkbox" value="" checked="checked")
+        label.form-check-label(for="") Inevitable (Moderate)
+      .form-check.form-check-inline
+        input.form-check-input(type="checkbox" value="" checked="checked")
+        label.form-check-label(for="") Undying (Difficult)
+    .col
+      span(style="font-weight:bold;") ENFORCEMENT: 
+      .form-check.form-check-inline
+        input.form-check-input(type="checkbox" value="" checked="checked")
+        label.form-check-label(for="") None
+      .form-check.form-check-inline
+        input.form-check-input(type="checkbox" value="" checked="checked")
+        label.form-check-label(for="") Snooze
+      .form-check.form-check-inline
+        input.form-check-input(type="checkbox" value="" checked="checked")
+        label.form-check-label(for="") Voting
+      .form-check.form-check-inline
+        input.form-check-input(type="checkbox" value="" checked="checked")
+        label.form-check-label(for="") Strict
+    .col
+      span(style="font-weight:bold;") VILLAINS: 
+      .form-check.form-check-inline
+        input.form-check-input(type="checkbox" value="" checked="checked")
+        label.form-check-label(for="") Duplicates
+      .form-check.form-check-inline
+        input.form-check-input(type="checkbox" value="" checked="checked")
+        label.form-check-label(for="") Random
+      .form-check.form-check-inline
+        input.form-check-input(type="checkbox" value="" checked="checked")
+        label.form-check-label(for="") Join
+      .form-check.form-check-inline
+        input.form-check-input(type="checkbox" value="" checked="checked")
+        label.form-check-label(for="") Free-for-All
+    .col-4#lobby_container
+  script(type="text/babel", src="lobby.js")

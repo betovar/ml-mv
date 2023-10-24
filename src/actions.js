@@ -1,6 +1,4 @@
-function play() {
-	// play a card from a player's hand to a location
-}
+
 function discard(card, who) {
 	// discard a card from a player's hand to the appropriate discard pile
 	// player turn must be active
@@ -14,25 +12,6 @@ function discard(card, who) {
 	// execute action
 	player[who].hand.splice(player[who].hand.indexOf(card), 1);
 	console.log (who, "discarded", card);
-}
-
-function gain() {
-	// player gains power
-}
-function attach() {
-	// attach an item or property to a card
-}
-function relocate() {
-	// move a card from one location to another
-}
-function activate() {
-	// trigger a not standard ability
-}
-function fate() {
-	// draw and play a fate card to an opponent's location
-}
-function vanquish() {
-	// defeat an opponent's card
 }
 function remove() {
 	// remove a card from play regardless of any triggers or effects

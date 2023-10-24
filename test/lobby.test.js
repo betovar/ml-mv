@@ -1,8 +1,8 @@
 let mongo = require('../src/mongodb.js')
 let db = new mongo.init()
 
-let TEST_USERID = Math.floor(Math.random() * 1000)
-let TEST_LOBBYID = 12345
+let TEST_LOBBYID
+let TEST_USERID = "alice"
 let TEST_LOBBY = {
     "players": "2",
     "events": "Omnipotent (Easy)",
@@ -14,13 +14,12 @@ let TEST_LOBBY = {
     "units": "minutes",
     'title': "Marvel Villainous",
     "privacy": "Public",
-    "password": "",
     'users': []
 }
 
 beforeAll( async () => {
     await db.connect()
-    await db.test_ready()
+    await db.clear_db()
 })
 
 test('create lobby', async () => {

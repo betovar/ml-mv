@@ -1,11 +1,33 @@
+const { url6 } = require('../src/mongodb.js')
 let mongo = require('../src/mongodb.js')
 let db = new mongo.init()
-let TEST_GAMEID = Math.random().toString(36).substr(2,6)
-let TEST_USERID = Math.floor(Math.random() * 1000)
+
+let TEST_GAMEID
+let TEST_USERID
+let TEST_GAME = {
+    'title': "game1234",
+    'url': url6()
+}
+let TEST_USER = {
+    'username': "guest",
+    'name': {
+        'first': "Alice",
+        'last': "Wright"
+    },
+    'stats': {
+        'wins': 0,
+        'plays': 0
+    },
+    'cakeday': "2022-08-01T00:00:00+00:00",
+    'location': {
+        'city': "New York",
+        'country': "NY"
+    }
+}
 
 beforeAll( async () => {
     await db.connect()
-    await db.test_ready()
+    await db.clear_db()
 })
 
 test('ping database', async () => {
@@ -31,7 +53,8 @@ test('get game', async () => {
 })
 
 test('update game', async () => {
-    let result = await db.up(TEST_GAMEID, {$set: {'decks.fate':[0,1,2,3,4,5,6,7,8,9]}})
+    let result = await db.up(TEST_GAMEID, 
+        {$set: {'decks.fate':[0,1,2,3,4,5,6,7,8,9]}})
     expect(result.acknowledged).toBeTruthy()
     expect(result.modifiedCount).toBe(1)
 })
@@ -51,48 +74,3 @@ test('delete game', async () => {
 afterAll( async () => {
     await db.disconnect()
 })
-
-const TEST_USER = {
-    'username': "guest",
-    'name': {
-        'first': "Alice",
-        'last': "Wright"
-    },
-    'stats': {
-        'wins': 0,
-        'total': 0
-    },
-    'birthday': "1970-01-01T00:00:00+00:00",
-    'gender': "F",
-    'location': {
-        'city': "New York",
-        'country': "NY"
-    }
-}
-
-const TEST_GAME = {
-    'turn': {
-        'order': [],
-        'index': 0,
-        'count': 0
-    },
-    'decks': {
-        'fate': [],
-        'thanos': [],
-        'ultron': []
-    },
-    'hands': {
-        'queue': [],
-        'thanos': [],
-        'ultron': []
-    },
-    'domains': {
-        'thanos': [],
-        'ultron': []
-    },
-    'events': {
-        'global': [],
-        'thanos': [],
-        'ultron': []
-    }
-}

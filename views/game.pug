@@ -1,9 +1,8 @@
 //- game.pug
-html
-  head
-    title Marvel Villainous
-    link(rel="stylesheet", href="/css/bootstrap.min.css")
-    block scripts
-      //- script(src='/jquery.js')
-  body
-    block content
+extends base.pug
+
+block scripts
+  //-link(rel="stylesheet", href="")
+
+block content
+  h1 #{_id}

@@ -2,19 +2,19 @@ let fate = [
 	{
 		"name": "Angela",
 		"text": "Soul Marks may not be attached to Angela. When played, remove a Soul Mark from Odin's Vault.",
-		"type": "Hero",
+		"type": "hero",
 		"strength": 6
 	},
 	{
 		"name": "Balder",
 		"text": "Soul Marks may not be attached to Balder. When played, remove a Soul Mark from any one Hero.",
-		"type": "Hero",
+		"type": "hero",
 		"strength": 3
 	},
 	{
 		"name": "Odin-Force",
 		"text": "When Odin-Force is played, attach it to a Hero. If this Hero has an attached Soul Mark, remove it. This Hero cannot have a Soul Mark attached and gains PROTECTOR.",
-		"type": "Item",
+		"type": "item",
 		"special": "protector"
 	}
 ];
@@ -46,7 +46,7 @@ let deck = [
 	{
 		"name": "Midgard Serpent",
 		"text": "",
-		"type": "Ally",
+		"type": "ally",
 		"cost": 3,
 		"strength": 5
 
@@ -54,7 +54,7 @@ let deck = [
 	{
 		"name": "Leah",
 		"text": "",
-		"type": "Ally",
+		"type": "ally",
 		"cost": 2,
 		"strength": 2
 		
@@ -62,7 +62,7 @@ let deck = [
 	{
 		"name": "Fenris Wolf",
 		"text": "",
-		"type": "Ally",
+		"type": "ally",
 		"cost": 2,
 		"strength": 3
 		
@@ -70,7 +70,7 @@ let deck = [
 	{
 		"name": "Hand of Glory",
 		"text": "",
-		"type": "Specialty",
+		"type": "specialty",
 		"cost": 2,
 		"activate": {}
 		
@@ -78,14 +78,14 @@ let deck = [
 	{
 		"name": "Raise the Dead",
 		"text": "",
-		"type": "Specialty",
+		"type": "specialty",
 		"cost": 2,
 		
 	},
 	{
 		"name": "Hela's Bidding",
 		"text": "",
-		"type": "Specialty",
+		"type": "specialty",
 		"cost": 3
 		
 	}
@@ -96,7 +96,7 @@ for (let i=0; i<=5; i++) {
 		deck.push({
 			"name": "Marked by Death",
 			"text": "",
-			"type": "Effect",
+			"type": "effect",
 			"cost": 1
 		});
 	}
@@ -104,14 +104,14 @@ for (let i=0; i<=5; i++) {
 		deck.push({
 			"name": "Draugr Swordsman",
 			"text": "",
-			"type": "Ally",
+			"type": "ally",
 			"cost": 1,
 			"strength": 2
 		});
 		deck.push({
 			"name": "Disir",
 			"text": "",
-			"type": "Ally",
+			"type": "ally",
 			"cost": 2,
 			"strength": 3
 		});
@@ -120,7 +120,7 @@ for (let i=0; i<=5; i++) {
 		deck.push({
 			"name": "Death's Embrace",
 			"text": "",
-			"type": "Effect",
+			"type": "effect",
 			"cost": 0
 		});
 	}
@@ -128,7 +128,7 @@ for (let i=0; i<=5; i++) {
 		deck.push({
 			"name": "Soul for a Soul",
 			"text": "",
-			"type": "Effect",
+			"type": "effect",
 			"cost": 1
 		});
 		deck.push({
@@ -140,13 +140,13 @@ for (let i=0; i<=5; i++) {
 		deck.push({
 			"name": "Price of Life",
 			"text": "",
-			"type": "Effect",
+			"type": "effect",
 			"cost": 0
 		});
 		deck.push({
 			"name": "Hel to Pay",
 			"text": "",
-			"type": "Effect",
+			"type": "effect",
 			"cost": 2
 		});
 	}

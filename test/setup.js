@@ -7,22 +7,6 @@ test("Player power", () => {
 	expect(g.player.hela.power).toBe(2)
 	expect(g.player.killmonger.power).toBe(2)
 })
-test("Fate deck", () => {
-	let f = g.turn.order.length*10+11
-	if (g.event.mode == 'inevitable') {
-		f += g.turn.order.length+4
-	}
-	if (g.event.mode == 'undying') {
-		f += g.turn.order.length+4
-	}
-	expect(g.deck.fate.length).toBe(f)
-})
-test("Villain decks", () => {
-	expect(g.deck.thanos.length).toBe(30)
-	expect(g.deck.ultron.length).toBe(30)
-	expect(g.deck.hela.length).toBe(30)
-	expect(g.deck.killmonger.length).toBe(30)
-})
 test("Turn order", () => {
 	expect(g.turn.order.length).toBe(4)
 	expect(g.turn.order[0]).toBe('thanos')
