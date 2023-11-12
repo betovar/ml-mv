@@ -1,40 +1,38 @@
-let thanos = require('../src/decks/thanos.js')
-test("Thanos' villain cards", () => {
-	expect(thanos.deck.length).toBe(30)
-	expect(thanos.fate.length).toBe(10)
-	expect(thanos.event.length).toBe(1)
-})
+const fate_deck = require("../src/decks");
 
-let ultron = require('../src/decks/ultron.js')
-test("Ultron's villain cards", () => {
-	expect(ultron.deck.length).toBe(30)
-	expect(ultron.fate.length).toBe(10)
-	expect(ultron.event.length).toBe(1)
-})
-
-let hela = require('../src/decks/hela.js')
-test("Hela's villain cards", () => {
-	expect(hela.deck.length).toBe(30)
-	expect(hela.fate.length).toBe(10)
-	expect(hela.event.length).toBe(1)
-})
-
-let taskmaster = require('../src/decks/taskmaster.js')
-test("Taskmaster's villain cards", () => {
-	expect(taskmaster.deck.length).toBe(30)
-	expect(taskmaster.fate.length).toBe(10)
-	expect(taskmaster.event.length).toBe(1)
-})
-
-let killmonger = require('../src/decks/killmonger.js')
-test("Killmonger's villain cards", () => {
-	expect(killmonger.deck.length).toBe(30)
-	expect(killmonger.fate.length).toBe(10)
-	expect(killmonger.event.length).toBe(1)
-})
-
-let fate = require('../src/decks/fate.js')
-test("Fate deck", () => {
-	expect(fate.fate.length).toBe(11)
-	expect(fate.event.length).toBe(4)
-})
+describe("fate deck", () => {
+	test.todo("is shuffled");
+	test.todo("add villian fates to deck");
+	test.todo("add events to deck");
+	test("loaded all cards", () => {
+		expect(fate_deck).toHaveLength(11);
+	});
+	test("has iron man", () => {
+		expect(fate_deck).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({"name": "Iron Man"})
+			])
+		);
+	});
+	test("has at least one hero", () => {
+		expect(fate_deck).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({"type": "hero"})
+			])
+		);
+	});
+	test("no cards have a strength of zero", () => {
+		expect(fate_deck).not.toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({"strength": 0})
+			])
+		);
+	});
+});
+describe("deck functions", () => {
+	test.todo("draw a card");
+	test.todo("discard pile");
+	test.todo("find a card");
+	test.todo("reveal a card");
+	test.todo("look for a card");
+});

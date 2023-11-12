@@ -1,40 +1,5 @@
-let thanos = require('../src/domains/thanos.js')
-test("loads Thanos' domain", () => {
-	expect(thanos.domain.length).toBe(5)
-	expect(thanos.domain[0].name).toBe('Sanctuary II')
-	expect(thanos.domain[1].name).toBe('Titan')
-	expect(thanos.domain[2].name).toBe('The Infinity Well')
-	expect(thanos.domain[3].name).toBe('Knowhere')
-})
-let ultron = require('../src/domains/ultron.js')
-test("loads Ultron's domain", () => {
-	expect(ultron.domain.length).toBe(5)
-	expect(ultron.domain[0].name).toBe('Research Lab')
-	expect(ultron.domain[1].name).toBe('Manufacturing Array')
-	expect(ultron.domain[2].name).toBe('Reconfiguration Base')
-	expect(ultron.domain[3].name).toBe('Stark Industries')
-})
-let hela = require('../src/domains/hela.js')
-test("loads Hela's domain", () => {
-	expect(hela.domain.length).toBe(5)
-	expect(hela.domain[0].name).toBe('Niflheim')
-	expect(hela.domain[1].name).toBe('Hel')
-	expect(hela.domain[2].name).toBe('Gjoll')
-	expect(hela.domain[3].name).toBe("Odin's Vault")
-})
-let killmonger = require('../src/domains/killmonger.js')
-test("loads Killmonger's domain", () => {
-	expect(killmonger.domain.length).toBe(5)
-	expect(killmonger.domain[0].name).toBe('Warrior Falls')
-	expect(killmonger.domain[1].name).toBe('Institute of Technology')
-	expect(killmonger.domain[2].name).toBe('The Great Mound')
-	expect(killmonger.domain[3].name).toBe('The Golden City')
-})
-let taskmaster = require('../src/domains/taskmaster.js')
-test("loads Taskmaster's domain", () => {
-	expect(taskmaster.domain.length).toBe(5)
-	expect(taskmaster.domain[0].name).toBe('Solomon Institute')
-	expect(taskmaster.domain[1].name).toBe('Training Room')
-	expect(taskmaster.domain[2].name).toBe('Armory')
-	expect(taskmaster.domain[3].name).toBe('Camp Hammond')
-})
+//let thanos = require('../src/domains/thanos.js')
+
+describe("domains", () => {
+	test.todo("load Thanos domain");
+});

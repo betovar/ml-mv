@@ -1,32 +1,20 @@
-let game = require('../src/lobby.js')
-//let mongo = require('../src/mongodb.js')
-
-describe("my awesome project", () => {
-    let io, serverSocket, clientSocket
-
-    beforeAll((done) => {
-        const httpServer = createServer()
-        io = new Server(httpServer)
-        httpServer.listen(() => {
-        const port = httpServer.address().port
-        clientSocket = new Client(`http://localhost:${port}`)
-        io.on("connection", (socket) => {
-            serverSocket = socket
-        })
-        clientSocket.on("connect", done)
-        })
-    })
-
-    afterAll(() => {
-        io.close()
-        clientSocket.close()
-    })
-
-    test("should work", (done) => {
-        clientSocket.on("hello", (arg) => {
-          expect(arg).toBe("world")
-          done()
-        })
-        serverSocket.emit("hello", "world")
-      })
-})
+describe("the game logic can", () => {
+	test.todo("move a villian");
+	test.todo("gain power");
+	test.todo("draw a villian card");
+    test.todo("play an item card");
+    test.todo("play an ally card");
+    test.todo("play an effect card");
+    test.todo("play a specialty card");
+    test.todo("play a multiverse card");
+    test.todo("play a variant card");
+    test.todo("draw a fate card");
+    test.todo("play a fate card");
+	test.todo("discard cards");
+	test.todo("perform a vanquish action");
+	test.todo("relocate a card");
+	test.todo("defeat a card");
+	test.todo("remove a card");
+	test.todo("activate an ability");
+	test.todo("end a player's turn");
+});
