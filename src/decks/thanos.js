@@ -1,62 +1,59 @@
+// THANOS VILLIAN DECK
 let fate = [
 	{
 		"name": "Adam Warlock",
 		"text": "Thanos cannot win the game if Adam Warlock is in Thanos' Domain.",
 		"type": "Hero",
 		"strength": 6,
-		"win": () => {
-			console.log("win is blocked when this card is in thanos domain")
-		}
+		"back": "fate",
 	},
 	{
 		"name": "Drax the Destroyer",
 		"text": "At least two Allies must be used to defeat Drax the Destroyer with a vanquish action.",
 		"type": "Hero",
 		"strength": 5,
-		"vanquish": () => {
-			console.log("two allies must be used")
-		}
+		"back": "fate",
 	},
 	{
 		"name": "Gamora",
 		"text": "When Gamora is played, defeat a character at her location. If that character is an Ally of Thanos, place 2 +1 strength tokens on Gamora.",
 		"type": "Hero",
 		"strength": 3,
-		"play": () => {
-			console.log("defeat a character at this location, +2 strength tokens if thanos ally")
-		}
+		"back": "fate",
 	},
 	{
 		"name": "Nebula",
 		"text": "When Nebula is played, the targeted player loses Power equal to the number of Infinity Stones they control. Place a number of +1 Strength tokens on Nebula equal to that Power.",
 		"type": "Hero",
 		"strength": 3,
-		"play": () => {
-			console.log("stone count shorts targeted power, stone count adds strength")
-		}
+		"back": "fate",
 	}
 ];
-
-for (let i=0; i<=3; i++) {
-	if ( i<3 ) { // 3 copies
+for (let i=0; i<3; i++) {
+	if (i<3) { // 3 copies
 		fate.push({
 			"name": "A Stone is Found",
 			"text": "Choose a Villain other than Thanos. That Villain receives an unclaimed Infinity Stone. Once played, they may immediately activate it for free.",
 			"type": "Effect",
-			"play": () => {
-				console.log("random infinity stone given to targeted player.")
-			}
+			"back": "fate",
 		});
 		fate.push({
 			"name": "What Did It Cost?",
 			"text": "The targeted Villain must discard one card from their hand for each Infinity Stone they control up to the total number of cards in their hand.",
 			"type": "Effect",
-			"play": () => {
-				console.log()
-			}
+			"back": "fate",
 		});
 	}
-}
+};
+
+let events = [
+	{
+		"name": "Sacrifices Must Be Made",
+		"type": "Event",
+		"strength": 7,
+		"back": "thanos"
+	}
+];
 
 let deck = [
 	{
@@ -65,9 +62,7 @@ let deck = [
 		"type": "Ally",
 		"cost": 3,
 		"strength": 6,
-		"play": () => {
-			console.log("verify that the destination is not an event")
-		}
+		"back": "thanos",
 	},
 	{
 		"name": "Black Swan",
@@ -75,16 +70,15 @@ let deck = [
 		"type": "Ally",
 		"cost": 2,
 		"strength": 1,
-		"always": () => {
-			console.log("if location has stone, then strength matches strongest opponent")
-		}
+		"back": "thanos",
 	},
 	{
 		"name": "Corvus Glaive",
 		"text": "When Corvis Glaive is relocated to another player's Domain, you may also relocate one The Legions of Thanos Ally to his location.",
 		"type": "Ally",
 		"cost": 3,
-		"strength": 4
+		"strength": 4,
+		"back": "thanos",
 	},
 	{
 		"name": "Ebony Maw",
@@ -92,9 +86,7 @@ let deck = [
 		"type": "Ally",
 		"cost": 3,
 		"strength": 4,
-		"vanquish": () => {
-			console.log("not discarded in vanquish")
-		}
+		"back": "thanos",
 	},
 	{
 		"name": "Proxima Midnight",
@@ -102,29 +94,25 @@ let deck = [
 		"type": "Ally",
 		"cost": 2,
 		"strength": 3,
-		"play": () => {
-			console.log("defeat a character of <3 at her location")
-		}
+		"back": "thanos",
 	},
 	{
 		"name": "Space Throne",
 		"text": "This location gains RELOCATE.",
 		"type": "Item",
 		"cost": 2,
-		"ability": () => {
-			console.log("location gains relocate")
-		}
+		"back": "thanos",
 	}
 ];
-
-for (let i=0; i<=5; i++) {
+for (let i=0; i<5; i++) {
 	if ( i<5 ) { // 5 copies
 		deck.push({
 			"name": "The Legions of Thanos",
 			"text": "No additional ability.",
 			"type": "Ally",
 			"strength": 2,
-			"cost": 1
+			"cost": 1,
+			"back": "thanos",
 			});
 	}
 	if ( i<4 ) { // 4 copies
@@ -133,9 +121,7 @@ for (let i=0; i<=5; i++) {
 			"text": "Choose another player. That player receives a random unclaimed Infinity Stone. Once played, you may relocate an Ally to that location.",
 			"type": "Effect",
 			"cost": 2,
-			"play": () => {
-				console.log("targeted player receives a random infinity stone, relocate ally")
-			}
+			"back": "thanos",
 		});
 	}
 	if ( i<3 ) { // 3 copies
@@ -144,24 +130,21 @@ for (let i=0; i<=5; i++) {
 			"text": "Gain 1 Power plus 1 additional Power for each other Villain who controls an Infinity Stone.",
 			"type": "Effect",
 			"cost": 0,
-			"play": () => {
-				console.log("gain power 1+ stone count")
-			}
+			"back": "thanos",
 		});
 		deck.push({
 			"name": "Death's Favor",
 			"text": "You may choose to perform an activate or vanquish action when you move to this location. A location may not hold more than on ecopy of Death's Favor.",
 			"type": "Item",
 			"cost": 2,
-			"ability": () => {
-				console.log("add relocate ability")
-			}
+			"back": "thanos",
 		});
 		deck.push({
 			"name": "Taste of Cosmic Power",
 			"text": "Place a +1 Strength token on an Ally you control. That Ally may immediately vanquish a character at this location with equal of lesser Strength, and is not discarded after this vanquish action.",
 			"type": "Effect",
-			"cost": 2
+			"cost": 2,
+			"back": "thanos",
 		});
 	}
 	if ( i<2 ) { // 2 copies
@@ -169,22 +152,25 @@ for (let i=0; i<=5; i++) {
 			"name": "Deliver Judgment",
 			"text": "Choose a location with an Infinity Stone. Relocate up to two Allies you control to that location. Place a +1 Strength token on each of your Allies at that location.",
 			"type": "Effect",
-			"cost": 3
+			"cost": 3,
+			"back": "thanos",
 		});
 		deck.push({
 			"name": "The Mad Titan",
 			"text": "Choose a character you do not control in the same location as one of your Allies. Defeat that character. The cost to play The Mad titan is equal to the Strength of the defeated character.",
 			"type": "Effect",
-			"cost": "?"
+			"cost": "*",
+			"back": "thanos",
 		});
 		deck.push({
 			"name": "Warp Reality",
 			"text": "Search your discard pile for an Effect card. Put it in your hand.",
 			"type": "Effect",
-			"cost": 1
+			"cost": 1,
+			"back": "thanos",
 		});
 	}
-}
+};
 
 let stones = [
 	{
@@ -192,56 +178,37 @@ let stones = [
 		"text": "ACTIVATE: Find any card in your deck, then add it to your hand.",
 		"type": "Item",
 		"back": "Specialty",
-		"activate": () => {}
 	},
 	{
 		"name": "Power Stone",
 		"text": "ACTIVATE: Place two +1 Strength Tokens on an Ally you control.",
 		"type": "Item",
 		"back": "Specialty",
-		"activate": () => {}
 	},
 	{
 		"name": "Reality Stone",
 		"text": "ACTIVATE: Perform a vanquish action. Your Allies are not discarded as a result of the vanquish action.",
 		"type": "Item",
 		"back": "Specialty",
-		"activate": () => {console.log(this.text)}
 	},
 	{
 		"name": "Soul Stone",
 		"text": "ACTIVATE: Play an Ally for free from your discard pile.",
 		"type": "Item",
 		"back": "Specialty",
-		"activate": () => {}
 	},
 	{
 		"name": "Space Stone",
 		"text": "ACTIVATE: You may relocate any number of your Allies.",
 		"type": "Item",
 		"back": "Specialty",
-		"activate": () => {}
 	},
 	{
 		"name": "Time Stone",
 		"text": "ACTIVATE: Gain 1 Power and draw one Villain card.",
 		"type": "Item",
 		"back": "Specialty",
-		"activate": () => {}
 	}
 ];
 
-let event = [
-	{
-		"name": "Sacrifices Must Be Made",
-		"type": "Event",
-		"strength": 7
-	}
-];
-
-module.exports = {
-	"deck": deck,
-	"fate": fate,
-	"event": event,
-	"stones": stones
-};
+module.exports = { fate, events, deck, stones };
