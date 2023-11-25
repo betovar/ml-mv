@@ -1,4 +1,6 @@
 // THANOS VILLIAN DECK
+
+//consider an interface?= from typescript
 let fate = [
 	{
 		"name": "Adam Warlock",
