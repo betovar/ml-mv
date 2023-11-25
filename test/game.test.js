@@ -1,7 +1,6 @@
 // GAME UNIT TESTS
 
 const { Game_Factory } = require("../src/game.js");
-
 const TEST_LOBBY = {
     "gameid": "abcxyz",
     "settings": {
@@ -19,10 +18,11 @@ const TEST_LOBBY = {
         {"villain": "ultron", "userid": "testuser2", "seat": 1},
     ],
 };
+let game;
 
-let game = Game_Factory(TEST_LOBBY);
-const P1 = game.players[0].villain;
-const P2 = game.players[1].villain;
+beforeAll(() => {
+game = Game_Factory(TEST_LOBBY);
+});
 
 describe("fate deck", () => {
 	test("load common fate cards", () => {
@@ -34,15 +34,6 @@ describe("fate deck", () => {
 	test("load common event cards", () => {
 		expect(game.decks.fate).toHaveLength(11+11+11);
 	});
-// 	test("is shuffled", () => {
-// 		const temp0 = deck.fate[0];
-// 		const temp3 = deck.fate[3];
-// 		const temp9 = deck.fate[9];
-// 		deck.shuffle(deck.fate);
-// 		expect(deck.fate[0]).not.toBe(temp0);
-// 		expect(deck.fate[3]).not.toBe(temp3);
-// 		expect(deck.fate[9]).not.toBe(temp9);
-// 	});
 });
 describe("villain decks", () => {
 	test("load thanos fate cards", () => {
@@ -72,14 +63,14 @@ describe("villain decks", () => {
 		);
 	});
 	test("load thanos villain deck", () => {
-		expect(game.decks[P1]).toEqual(
+		expect(game.decks["thanos"]).toEqual(
 			expect.arrayContaining([
 				expect.objectContaining({"name": "Ebony Maw"})
 			])
 		);
 	});
     test("load ultron villain deck", () => {
-		expect(game.decks[P2]).toEqual(
+		expect(game.decks["ultron"]).toEqual(
 			expect.arrayContaining([
 				expect.objectContaining({"name": "Alkhema"})
 			])
@@ -88,11 +79,26 @@ describe("villain decks", () => {
 });
 describe("misc player data", () => {
     test("load power", () => {
-        expect(game.power[P1]).toBe(0);
-        expect(game.power[P2]).toBe(1);
+        expect(game.power["thanos"]).toBe(0);
+        expect(game.power["ultron"]).toBe(1);
     });
     test("discard decks", () => {
-        expect(game.discards[P1].length).toBe(0);
-        expect(game.discards[P2].length).toBe(0);
+        expect(game.discards["thanos"].length).toBe(0);
+        expect(game.discards["ultron"].length).toBe(0);
     });
+});
+describe("domains", () => {
+	test.todo("load Thanos domain");
+   test("load thanos domain", () => {
+		expect(game.domains["thanos"]).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({"name": "Knowhere"})
+		]));
+	});
+   test("load ultron domain", () => {
+		expect(game.domains["ultron"]).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({"name": "Stark Industries"})
+		]));
+	});
 });

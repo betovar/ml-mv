@@ -1,12 +1,5 @@
 // RULES UNIT TESTS
 
-describe("deck operations", () => {
-	test.todo("draw a card");
-	test.todo("discard pile");
-	test.todo("find a card");
-	test.todo("reveal a card");
-	test.todo("look for a card");
-});
 describe("game operations", () => {
 	test.todo("move a villian");
 	test.todo("gain power");

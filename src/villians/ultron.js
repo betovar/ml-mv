@@ -170,6 +170,36 @@ for (let i=0; i<4; i++) {
 	}
 }
 
+let domain = [
+	{
+		"name": "Research Lab",
+		"top": ["Relocate", "1 Power"],
+		"bottom": ["Fate", "Play"],
+		"good": [],
+		"bad": [],
+	}, {
+		"name": "Manufacturing Array",
+		"top": ["Play", "Fate"],
+		"bottom": ["3 Power", "Activate"],
+		"good": [],
+		"bad": [],
+	}, {
+		"name": "Reconfiguration Base",
+		"top": ["Play", "2 Power"],
+		"bottom": ["Discard", "Vanquish"],
+		"good": [],
+		"bad": [],
+	}, {
+		"name": "Stark Industries",
+		"top": ["Discard", "Play"],
+		"bottom": ["Play", "1 Power"],
+		"good": [],
+		"bad": [],
+	}, {
+		"name": "Specialty",
+		"stack": [],
+}];
+
 let upgrades = [
 	{
 		"name": "Transforming",
@@ -194,4 +224,4 @@ let upgrades = [
 	},
 ]
 
-module.exports = { fate, events, deck, upgrades };
+module.exports = { fate, events, deck, domain, upgrades };

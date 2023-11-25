@@ -172,6 +172,36 @@ for (let i=0; i<5; i++) {
 	}
 };
 
+let domain = [
+	{
+		"name": "Sanctuary II", 
+		"top": ["2 Power", "Activate"],
+		"bottom": ["Play", "Discard"],
+		"good": [],
+		"bad": [],
+	}, {
+		"name": "Titan",
+		"top": ["Play", "Fate"],
+		"bottom": ["1 Power", "Relocate"],
+		"good": [],
+		"bad": [],
+	}, {
+		"name": "The Infinity Well",
+		"top": ["Play", "Discard"],
+		"bottom": ["Play", "3 Power"],
+		"good": [],
+		"bad": [],
+	}, {
+		"name": "Knowhere",
+		"top": ["Relocate"],
+		"bottom": ["Fate", "Play", "Vanquish"],
+		"good": [],
+		"bad": [],
+	}, {
+		"name": "Specialty",
+		"stack": [],
+}];
+
 let stones = [
 	{
 		"name": "Mind Stone",
@@ -211,4 +241,4 @@ let stones = [
 	}
 ];
 
-module.exports = { fate, events, deck, stones };
+module.exports = { fate, events, deck, domain, stones };
