@@ -1,5 +1,6 @@
 // RULES
 
+const { remove } = require('lodash');
 const { Database } = require("./localdb.js");
 let db = new Database;
 
@@ -22,6 +23,14 @@ function shuffle(data) {
     return { "acknowledged": true, "gameid": state.gameid };
 }
 function draw(data) {
+    /**
+     * @function draw the first n cards into your hand
+     * @param {string} gameid - The unique game id
+     * @param {string} from - The deck to be searched from
+     * @param {string} to - The hand to be added to
+     * @param {number} n - number of cards to look
+     * @returns {number} count - number of cards drawn
+     */
     let state = db.read(data.gameid);
     if (state.gameid != data.gameid) {
         return { "acknowledged": false };
@@ -36,20 +45,22 @@ function draw(data) {
         default:
             return { "acknowledged": false };
     }
-    const card = state[from[0]][from[1]].shift();
-    state[to[0]][to[1]].unshift(card);
+    let i,card;
+    for (i=0; i<data.n; i++) {
+        card = state.decks[from[1]].shift();
+        state.hands[to[1]].push(card);
+    }
     db.update(state);
-    return { "acknowledged": true, "card": card };
+    return { "acknowledged": true, "count": i };
 }
-/**
- * @function discard a card from hand by index
- * @param {string} gameid - The unique game ID
- * @param {string} which - The deck that must be searched
- * @param {string} index - The card index to discard
- * @returns acknowledged - true/false
- * @returns card - a card object
- */
 function discard(data) {
+    /**
+     * @function discard a card from hand by index
+     * @param {string} gameid - The unique game ID
+     * @param {string} which - The hand to discard from
+     * @param {string} cards - array of cards by name to discard
+     * @returns acknowledged - true/false
+     */
     let state = db.read(data.gameid);
     if (state.gameid != data.gameid) { // check game id
         return { "acknowledged": false };
@@ -66,12 +77,21 @@ function discard(data) {
         default:
             return { "acknowledged": false };
     }
-    const card = state.hands[which[1]].splice(data.index,1)[0];
+    let card = remove(state.hands[which[1]], function(c) {
+        return c.name == data.cards[0];
+    });
     state.discards[which[1]].push(card);
     db.update(state);
-    return { "acknowledged": true, "card": card };
+    return { "acknowledged": true };
 }
 function reshuffle(data) {
+    /**
+    * @function reshuffle a card from hand by index
+    * @param {string} gameid - The unique game ID
+    * @param {string} which - The deck that must be reshuffled
+    * @returns acknowledged - true/false
+    * @returns gameid - The unique game ID
+    */
     let state = db.read(data.gameid);
     if (state.gameid != data.gameid) { // check the game id
         return { "acknowledged": false };
@@ -95,16 +115,16 @@ function reshuffle(data) {
     state.discards[which[1]] = [];
     shuffle_in_place(state.decks[which[1]]);
     db.update(state);
-    return { "acknowledged": true, "gameid": data.gameid };
+    return { "acknowledged": true, "gameid": state.gameid };
 }
-/**
- * @function find the first card of a name or type in a deck
- * @param {string} gameid - The unique game id
- * @param {string} which - The deck to be searched
- * @param {string} type - The card type to match
- * @param {string} name - The card name to match (optional for unique cards)
- */
 function find(data) {
+    /**
+     * @function find the first card of a name or type in a deck
+     * @param {string} gameid - The unique game id
+     * @param {string} which - The deck to be searched
+     * @param {string} type - The card type to match
+     * @param {string} name - The card name to match (optional for unique cards)
+     */
     // consider lodash for searching
     let state = db.read(data.gameid);
     if (state.gameid != data.gameid) { // check the game id
@@ -135,7 +155,45 @@ function find(data) {
     db.update(state);
     return { "acknowledged": true, "card": card }; // return card
 }
-
+function look(data) {
+    /**
+     * @function look privately view the first n cards
+     * @param {string} gameid - The unique game id
+     * @param {string} which - The deck to be searched
+     * @param {string} n - number of cards to look
+     */
+    let state = db.read(data.gameid);
+    if (state.gameid != data.gameid) { // check the game id
+        return { "acknowledged": false };
+    }
+    const which = data.which.split('.');
+    if (which[0] != "decks") {  // only look at cards in fate/villain decks
+        return { "acknowledged": false };
+    }
+    const cards = state.decks[which[1]].slice(0,data.n);
+    return { "acknowledged": true, "card": cards };
+}
+function reveal(data) {
+    /**
+     * @function reveal public show the first n cards
+     * @param {string} gameid - The unique game id
+     * @param {string} which - The deck to be searched
+     * @param {string} n - number of cards to look
+     */
+    if (data.n === undefined) {
+        data.n
+    }
+    let state = db.read(data.gameid);
+    if (state.gameid != data.gameid) { // check the game id
+        return { "acknowledged": false };
+    }
+    const which = data.which.split('.');
+    if (which[0] != "decks") {  // only look at cards in fate/villain decks
+        return { "acknowledged": false };
+    }
+    const cards = state.decks[which[1]].slice(0,data.n);
+    return { "acknowledged": true, "card": cards };
+}
 function shuffle_in_place(array) {
     for (let i = array.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
@@ -144,4 +202,4 @@ function shuffle_in_place(array) {
         array[j] = temp;
     }
 };
-module.exports = { draw, discard, find, reshuffle, shuffle }
+module.exports = { draw, discard, find, reshuffle, shuffle, look, reveal }
